@@ -8,8 +8,11 @@
 import Quill from 'quill'
 
 export default {
-
   props: {
+    // The form value
+    value: {
+      required: true
+    }
     options: {
       type: Object,
       default: () => ({})
@@ -20,12 +23,16 @@ export default {
   data () {
     return {
       focused: this.autofocus,
-      editor: null
+      editor: null,
+      changedContent: null
     }
   },
 
   mounted () {
     this.editor = new Quill(this.$el, this.options)
+    this.editor.on('text-change', (delta, source) => {
+      this.$emit('input', this.options.output != 'delta' ? this.editor.root.innerHTML : this.editor.getContents())
+    })
   },
 
   watch: {
