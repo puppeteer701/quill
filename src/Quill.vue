@@ -31,7 +31,6 @@ export default {
   mounted () {
     this.editor = new Quill(this.$el, this.options)
     this.editor.on('text-change', (delta, source) => {
-      console.log(delta, source)
       this.$emit('input', this.options.output !== 'delta' ? this.editor.root.innerHTML : this.editor.getContents())
     })
   },
