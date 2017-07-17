@@ -12,7 +12,7 @@ export default {
     // The form value
     value: {
       required: true
-    }
+    },
     options: {
       type: Object,
       default: () => ({})
@@ -31,7 +31,8 @@ export default {
   mounted () {
     this.editor = new Quill(this.$el, this.options)
     this.editor.on('text-change', (delta, source) => {
-      this.$emit('input', this.options.output != 'delta' ? this.editor.root.innerHTML : this.editor.getContents())
+      console.log(delta, source)
+      this.$emit('input', this.options.output !== 'delta' ? this.editor.root.innerHTML : this.editor.getContents())
     })
   },
 
