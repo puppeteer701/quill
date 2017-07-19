@@ -29,10 +29,18 @@ export default {
   },
 
   mounted () {
+    let vm = this
     this.editor = new Quill(this.$el, this.options)
     this.editor.on('text-change', (delta, source) => {
       this.$emit('input', this.options.output !== 'delta' ? this.editor.root.innerHTML : this.editor.getContents())
     })
+    setTimeout(() => {
+      if (vm.options.output !== 'delta') {
+        vm.editor.pasteHTML(vm.value)
+      } else {
+        vm.editor.setText(vm.value)
+      }
+    }, 200)
   },
 
   watch: {
